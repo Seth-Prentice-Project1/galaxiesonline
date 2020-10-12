@@ -103,7 +103,7 @@ function rollDice(){
   if(currTurn == player && !rolled){
     rolled = true;
     console.log(currTurn);
-    document.querySelector("#helpText").innerText = "Click a dice that you have more than 0 of \nMove lets you change the location of one of your unlocked ships \nEnergy gains you one energy per ship at a planet with energy as a resource or docked \nCulture gains you one culture per ship at a planet with culture as the resource \nEcononmy and Diplomacy increase the level of a ship with cultures of their respective types and if you have a higher level than the planet you capture it and gain its victory points \nColony allows you to expand your empire spending either culture or energy, you gaing victory points from this \nYou can reroll a die but that costs one energy"
+    document.querySelector("#helpText").innerText = "Click a dice that you have more than 0 of /nMove lets you change the location of one of your unlocked ships /nEnergy gains you one energy per ship at a planet with energy as a resource or docked /nCulture gains you one culture per ship at a planet with culture as the resource /nEcononmy and Diplomacy increase the level of a ship with cultures of their respective types and if you have a higher level than the planet you capture it and gain its victory points n/Colony allows you to expand your empire spending either culture or energy, you gaing victory points from this /nYou can reroll a die but that costs one energy"
     document.querySelector('#endTurn').style.display = "block";
     results = [];
     numRolled = [0, 0, 0, 0, 0, 0];
@@ -235,7 +235,6 @@ function checkLevels(){
             planet = planetArray[Math.floor(Math.random() * 40)];
           }
           db.ref("active/planet" + pnum).set(planet);
-          console.log(activePlanets);
           db.ref("players/" + player +"/ships/ship" + i).set({
             location: "dock",
             level: 0
@@ -248,6 +247,13 @@ function checkLevels(){
 }
 function nextTurn(){
   rolled = false;
+  numRolled = [0, 0, 0, 0, 0, 0];
+  document.querySelector('#moveDie').innerText = `Move die: ${numRolled[0]}`;
+  document.querySelector('#energyDie').innerText = `Energy die: ${numRolled[1]}`;
+  document.querySelector('#cultureDie').innerText = `Culture die: ${numRolled[2]}`;
+  document.querySelector('#economyDie').innerText = `Economy die: ${numRolled[3]}`;
+  document.querySelector('#diplomacyDie').innerText = `Diplomacy die: ${numRolled[4]}`;
+  document.querySelector('#colonyDie').innerText = `Colony die: ${numRolled[5]}`;
   db.ref("players").once("value", ss=>{
     let arr = []
     ss.forEach(snp=>{
@@ -262,7 +268,7 @@ function nextTurn(){
   });
 }
 function wrapUp(){
-  //call for everyone hrm
+  db.ref("winner").set(player);
 }
 
 //on click functions
@@ -323,6 +329,14 @@ document.querySelector("#start").onclick = function() {
       currTurn = ss.val();
       document.querySelector('#turnHolder').innerText = `Active Player: ${currTurn}`;
     });
+    
+    db.ref("winner").on('value', ss=>{
+      document.querySelector("#winText").innerText = `${ss.val()} is the winner!!!`;
+      if(ss.val() != " "){
+        document.querySelector("#winText").style.display = "none";
+      }
+    });
+    
     
     db.ref("players").child(document.querySelector("#nameBox").value).child("vp").on('value', ss=>{
       document.querySelector("#victory").innerText = `Victory points: ${ss.val()}`;
