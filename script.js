@@ -101,7 +101,7 @@ function updateNumDice(){
 function rollDice(){
   if(currTurn == player){
     console.log(currTurn);
-    document.querySelector("#helpText").innerText = "Click a dice that you have more than 0 of /nMove lets you change the location of one of your unlocked ships /nEnergy gains you one energy per ship at a planet with energy as a resource or docked /nCulture gains you one culture per ship at a planet with culture as the resource /nEcononmy and Diplomacy increase the level of a ship with cultures of their respective types and if you have a higher level than the planet you capture it and gain its victory points n/Colony allows you to expand your empire spending either culture or energy, you gaing victory points from this /nYou can reroll a die but that costs one energy"
+    document.querySelector("#helpText").innerText = "Click a dice that you have more than 0 of \nMove lets you change the location of one of your unlocked ships \nEnergy gains you one energy per ship at a planet with energy as a resource or docked \nCulture gains you one culture per ship at a planet with culture as the resource \nEcononmy and Diplomacy increase the level of a ship with cultures of their respective types and if you have a higher level than the planet you capture it and gain its victory points \nColony allows you to expand your empire spending either culture or energy, you gaing victory points from this \nYou can reroll a die but that costs one energy"
     document.querySelector('#endTurn').style.display = "block";
     results = [];
     numRolled = [0, 0, 0, 0, 0, 0];
