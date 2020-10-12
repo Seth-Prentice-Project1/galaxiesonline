@@ -230,7 +230,7 @@ function checkLevels(){
         }
         if(ss.val().level > document.querySelector("#plevels" + pnum).innerText.split(" ")[1]){
           updateVictory(document.querySelector("#plevels" + pnum).innerText.split(" ")[1]);
-          let planet = activePlanets[pnum];
+          let planet = activePlanets[pnum - 1];
           while(activePlanets.includes(planet)){
             planet = planetArray[Math.floor(Math.random() * 40)];
           }
