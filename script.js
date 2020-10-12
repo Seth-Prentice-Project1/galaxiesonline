@@ -101,6 +101,7 @@ function updateNumDice(){
 function rollDice(){
   if(currTurn == player){
     console.log(currTurn);
+    document.querySelector("#helpText").innerText = "Click a dice that you have more than 0 of /nMove lets you change the location of one of your unlocked ships /nEnergy gains you one energy per ship at a planet with energy as a resource or docked /nCulture gains you one culture per ship at a planet with culture as the resource /nEcononmy and Diplomacy increase the level of a ship with cultures of their respective types and if you have a higher level than the planet you capture it and gain its victory points n/Colony allows you to expand your empire spending either culture or energy, you gaing victory points from this /nYou can reroll a die but that costs one energy"
     document.querySelector('#endTurn').style.display = "block";
     results = [];
     numRolled = [0, 0, 0, 0, 0, 0];
@@ -298,7 +299,7 @@ document.querySelector("#start").onclick = function() {
     player = document.querySelector("#nameBox").value;
     document.querySelector("#player").innerText = player;
     console.log(1);
-    
+    document.querySelector("#helpText").innerText = "if it is your turn, hit roll and click an option, get to 21 victory points before the other players do and you win but you have to be smart, you are working without knowing what the others are doing";
     
     db.ref("turn").once("value", ss=>{
       if(ss.val() == "none"){
@@ -438,7 +439,7 @@ document.querySelector("#start").onclick = function() {
         });
   });
 }
-document.querySelector('#log').onclick = function(){
+document.querySelector('#log').onclick = function(){ //log is roll, i know its stupid, im not chainging it
   rollDice();
 }
 document.querySelector('#moveDie').onclick = function(){
@@ -449,8 +450,11 @@ document.querySelector('#moveDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
       reroll("move");
     }
+    else{
+      displayMoveButtons(true);
+    document.querySelector('#helpText').innerText = "click on a ship (it will glow) then click on an orbit surface or return to dock option";
+    }
   }
-  displayMoveButtons(true);
   //put function here
 }
 document.querySelector('#energyDie').onclick = function(){
@@ -461,8 +465,8 @@ document.querySelector('#energyDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
      reroll("energy");
     }
-  }
-  let nrg = 0;
+    else{
+        let nrg = 0;
   db.ref("players/" + player + "/ships/ship1/location").once("value", ss=>{
     switch(ss.val()){
       case "dock":
@@ -524,6 +528,9 @@ document.querySelector('#energyDie').onclick = function(){
     }
   });
   updateEnergy(nrg);
+    }
+  }
+
 }
 document.querySelector('#cultureDie').onclick = function(){
   if(numRolled[2]> 0){
@@ -533,8 +540,8 @@ document.querySelector('#cultureDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
       reroll("culture");
     }
-  } 
-  let cult = 0;
+    else{
+      let cult = 0;
   db.ref("players/" + player + "/ships/ship1/location").once("value", ss=>{
      db.ref("planet/" + ss.val().substr(0, ss.val().indexOf(" ")) +"/resource").once("value", snp=>{
        console.log(snp.val());
@@ -568,6 +575,9 @@ document.querySelector('#cultureDie').onclick = function(){
      });
   });
   updateCulture(cult);
+    }
+  } 
+  
 }
 document.querySelector('#economyDie').onclick = function(){
   if(numRolled[3]> 0){
@@ -577,8 +587,9 @@ document.querySelector('#economyDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
       reroll("economy");
     }
-  }
-  for(let i = 1; i<5; i++){
+    else{
+      document.querySelector('#helpText').innerText = "click on one of the outlined planet graphs and your ship will increase a level";
+      for(let i = 1; i<5; i++){
     db.ref("planet/" + document.querySelector('#pname' + i).innerText + "/colony").once("value", ss=>{
       if(ss.val() == "e"){
         for(let j = 1; j<5; j++){
@@ -592,6 +603,9 @@ document.querySelector('#economyDie').onclick = function(){
       }
     });
     }
+    }
+  }
+  
 }
 document.querySelector('#diplomacyDie').onclick = function(){
   if(numRolled[4]> 0){
@@ -601,8 +615,9 @@ document.querySelector('#diplomacyDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
       reroll("diplomacy");
     }
-  }
-  for(let i = 1; i<5; i++){
+    else{
+      document.querySelector('#helpText').innerText = "click on one of the outlined planet graphs and your ship will increase a level";
+      for(let i = 1; i<5; i++){
     db.ref("planet/" + document.querySelector('#pname' + i).innerText + "/colony").once("value", ss=>{
       if(ss.val() == "d"){
         for(let j = 1; j<5; j++){
@@ -616,6 +631,9 @@ document.querySelector('#diplomacyDie').onclick = function(){
       }
     });
     }
+    }
+  }
+  
 }
 document.querySelector('#colonyDie').onclick = function(){
   if(numRolled[5]> 0){
@@ -625,11 +643,13 @@ document.querySelector('#colonyDie').onclick = function(){
     if(document.querySelector('#rerollCheck').checked == true){
      reroll("colony");
     }
+    else{
+      document.querySelector('#helpText').innerText = "click on culture, energy, or cancel. the cost to level up is equal to the level you are becoming";
+      document.querySelector('#energy').style.textShadow = '0 0 3px yellow';
+      document.querySelector('#culture').style.textShadow = '0 0 3px yellow';
+      document.querySelector('#cancelColony').style.display = "block";
+    }
   }
-  document.querySelector('#energy').style.textShadow = '0 0 3px yellow';
-  document.querySelector('#culture').style.textShadow = '0 0 3px yellow';
-  document.querySelector('#cancelColony').style.display = "block";
-  //put function here
 }
 document.querySelector('#ship1').onclick = function(){
   db.ref("players/" + player +"/ships/ship1").once("value",ss=>{
