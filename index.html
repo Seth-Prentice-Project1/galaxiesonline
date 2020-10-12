@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+    </head>
+    <body>
+      <p id="turnHolder"><p>
+        <input type="text" id="nameBox" placeholder="Enter Name">
+        <button id="start">Start</button>
+        <button id="log" style = display: hidden>Roll</button>
+         <button id="endTurn" style = display: hidden>End Turn</button>
+       <div id = "container">
+       <div id="playmat">
+          <p id="player"><p>
+          <p id="energy"><p>
+          <p id="culture"><p>
+          <p id="victory"><p>
+          <p id="empire"><p>
+          <p id="dice"><p>
+          <p id="cancelColony" style = display: hidden>Cancel<p>
+        </div>
+      <div id="dicePad">
+        <p>Click the word to use the die<p>
+        <input type = 'checkBox' id = "rerollCheck" value = 'rr'>Check to reroll</input>
+        <p id="moveDie">Move die: 0<p>
+        <p id="energyDie">Energy die: 0<p>
+        <p id="cultureDie">Culture die: 0<p>
+        <p id="economyDie">Economy die: 0<p>
+        <p id="diplomacyDie">Diplomacy die: 0<p>
+        <p id="colonyDie">Colony die: 0<p>
+      </div>
+      <div id = "shipInfo">
+        <p>Ship Info:<p>
+        <p id = "ship1" value = 0>Ship 1: docked<p>
+        <p id = "s1lv" style = display: hidden><p>
+        <p id = "ship2" value = 0>Ship 2: docked<p>
+        <p id = "s2lv" style = display: hidden><p>
+        <p id = "ship3" value = 0>Ship 3: locked<p>
+        <p id = "s3lv" style = display: hidden><p>
+        <p id = "ship4" value = 0>Ship 4: locked<p>
+        <p id = "s4lv" style = display: hidden><p>
+        <p id = "dock" style = display: hidden>return to dock!<p>
+      </div>
+      </div>
+      <div id = "planetMat">
+        <div id = "planet1">
+          <p id = "pname1"><p>
+          <p id = "pcolony1"><p>
+          <p id = "presource1"><p>
+          <p id = "plevels1"><p>
+          <p id = "pvp1"><p>
+          <p id = "peffect1"><p>
+          <button id = "orbit1" style = display: hidden>orbit</button>
+          <button id = "surface1" style = display: hidden>surface</button>
+        </div>
+        <div id = "planet2">
+          <p id = "pname2"><p>
+          <p id = "pcolony2"><p>
+          <p id = "presource2"><p>
+          <p id = "plevels2"><p>
+          <p id = "pvp2"><p>
+          <p id = "peffect2"><p>
+          <button id = "orbit2" style = display: hidden>orbit</button>
+          <button id = "surface2" style = display: hidden>surface</button>
+        </div>
+        <div id = "planet3">
+          <p id = "pname3"><p>
+          <p id = "pcolony3"><p>
+          <p id = "presource3"><p>
+          <p id = "plevels3"><p>
+          <p id = "pvp3"><p>
+          <p id = "peffect3"><p>
+          <button id = "orbit3" style = display: hidden>orbit</button>
+          <button id = "surface3" style = display: hidden>surface</button>
+        </div>
+        <div id = "planet4">
+          <p id = "pname4"><p>
+          <p id = "pcolony4"><p>
+          <p id = "presource4"><p>
+          <p id = "plevels4"><p>
+          <p id = "pvp4"><p>
+          <p id = "peffect4"><p>
+          <button id = "orbit4" style = display: hidden>orbit</button>
+          <button id = "surface4" style = display: hidden>surface</button>
+        </div>
+      </div>
+    <p id = "victor"><p>
+    </body>
+</html>
